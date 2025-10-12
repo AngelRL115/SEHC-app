@@ -1,0 +1,42 @@
+<div class="create-user-container">
+  <div class="create-user-card">
+    <h2>Crear Nuevo Usuario</h2>
+    <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <label for="name">Nombre</label>
+        <input id="name" type="text" formControlName="name" placeholder="Tu nombre">
+        <div *ngIf="createUserForm.get('name')?.touched && createUserForm.get('name')?.errors?.['required']" class="error-message">
+          El nombre es requerido.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="lastName">Apellido</label>
+        <input id="lastName" type="text" formControlName="lastName" placeholder="Tu apellido">
+        <div *ngIf="createUserForm.get('lastName')?.touched && createUserForm.get('lastName')?.errors?.['required']" class="error-message">
+          El apellido es requerido.
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="username">Nombre de Usuario</label>
+        <input id="username" type="text" formControlName="username" placeholder="Tu nombre de usuario">
+        <div *ngIf="createUserForm.get('username')?.touched && createUserForm.get('username')?.errors?.['required']" class="error-message">
+          El nombre de usuario es requerido.
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="button" class="secondary-button" (click)="goBack()">Volver</button>
+        <button type="submit" [disabled]="createUserForm.invalid">Crear Usuario</button>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message api-error">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="success-message api-success">
+        {{ successMessage }}
+      </div>
+    </form>
+  </div>
+</div>

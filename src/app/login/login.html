@@ -1,0 +1,25 @@
+<div class="login-container">
+  <div class="login-card">
+    <img src="/static/img/honda-emblem.png" alt="Company Logo" class="login-logo">
+    <h2>Iniciar Sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <label for="username">Nombre de Usuario</label>
+        <input id="username" type="text" formControlName="username" placeholder="Tu nombre de usuario">
+        <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.errors?.['required']" class="error-message">
+          El nombre de usuario es requerido.
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+
+      <div *ngIf="errorMessage" class="error-message api-error">
+        {{ errorMessage }}
+      </div>
+    </form>
+
+    <div class="create-user-link">
+      <span>¿No tienes una cuenta? </span><a routerLink="/create-user">Crea una aquí</a>
+    </div>
+  </div>
+</div>
