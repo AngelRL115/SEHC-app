@@ -11,10 +11,14 @@ export class AuthService {
   // TODO: Reemplaza esta URL con la de tu endpoint de login real
   private apiUrl = 'http://localhost:3000/SEHC/auth/login';
   private tokenKey = 'auth_token';
+  private usernameKey = 'auth_username';
 
   constructor(private http: HttpClient, private router: Router) { }
 
   login(credentials: { username: string }): Observable<any> {
+    // Guardar el nombre de usuario en localStorage
+    localStorage.setItem(this.usernameKey, credentials.username);
+
     return this.http.post<any>(this.apiUrl, credentials).pipe(
       tap(response => {
         // Asume que el backend regresa un objeto con una propiedad 'token'
@@ -24,6 +28,8 @@ export class AuthService {
       }),
       catchError(error => {
         console.error('Error en el login:', error);
+        // Limpiar el nombre de usuario si el login falla
+        localStorage.removeItem(this.usernameKey);
         // Devuelve un observable de error para que el componente pueda manejarlo
         throw error;
       })
@@ -41,12 +47,20 @@ export class AuthService {
     return null;
   }
 
+  getUsername(): string | null {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(this.usernameKey);
+    }
+    return null;
+  }
+
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.usernameKey);
     this.router.navigate(['/login']);
   }
 

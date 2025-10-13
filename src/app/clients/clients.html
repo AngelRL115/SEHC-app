@@ -1,0 +1,35 @@
+<div class="clients-container">
+  <h1 class="page-title">Clientes</h1>
+  <div class="actions-bar">
+    <button class="btn btn-secondary" routerLink="/home">Regresar a Home</button>
+    <button class="btn btn-primary">Registrar Nuevo Cliente</button>
+  </div>
+  <div class="table-container">
+    <table class="clients-table">
+      <thead>
+        <tr>
+          <th class="col-name">Nombre</th>
+          <th class="col-lastname">Apellido</th>
+          <th class="col-actions">Acciones</th>
+        </tr>
+      </thead>
+    </table>
+    <div class="table-body-scroll" (scroll)="onTableScroll($event)">
+      <table class="clients-table">
+        <tbody>
+          <tr *ngFor="let client of displayedClients">
+            <td class="col-name" data-label="Nombre">{{ client.name }}</td>
+            <td class="col-lastname" data-label="Apellido">{{ client.lastName }}</td>
+            <td class="col-actions actions-cell" data-label="Acciones">
+              <button class="btn btn-secondary btn-sm" (click)="editClient(client.idclient)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteClient(client.idclient)">Eliminar</button>
+            </td>
+          </tr>
+          <tr *ngIf="displayedClients.length === 0">
+            <td colspan="3" class="text-center">No hay clientes para mostrar.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

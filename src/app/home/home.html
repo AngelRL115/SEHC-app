@@ -1,7 +1,17 @@
 <div class="home-container">
-  <div class="home-card">
-    <h2>¡Login Exitoso!</h2>
-    <p>Has iniciado sesión correctamente en la aplicación.</p>
-    <button (click)="logout()">Cerrar Sesión</button>
-  </div>
+  <header class="home-header">
+    <span class="welcome-message" *ngIf="username">Hola, {{ username }}</span>
+    <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
+  </header>
+  <main class="home-main">
+    <img src="static/img/honda-emblem.png" alt="Honda Emblem" class="honda-emblem">
+    <h1>Menú Principal</h1>
+    <div class="button-grid">
+      <button class="menu-button" routerLink="/clientes">Clientes</button>
+      <button class="menu-button" routerLink="/registro-autos">Registro de Autos</button>
+      <button class="menu-button" routerLink="/expedientes">Expedientes</button>
+      <button class="menu-button" routerLink="/citas">Citas</button>
+      <button class="menu-button" routerLink="/servicios">Servicios</button>
+    </div>
+  </main>
 </div>
