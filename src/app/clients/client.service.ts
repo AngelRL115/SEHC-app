@@ -20,11 +20,19 @@ export interface Client {
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:3000/SEHC/client/getAllClients';
+  private apiUrl = 'http://localhost:3000/SEHC/client';
 
   constructor(private http: HttpClient) { }
 
   getAllClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(this.apiUrl);
+    return this.http.get<Client[]>(`${this.apiUrl}/getAllClients`);
+  }
+
+  newClient(client: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/newClient`, client);
+  }
+
+  newVehicle(vehicle: any): Observable<any> {
+    return this.http.post<any>('http://localhost:3000/SEHC/vehicle/newVehicle', vehicle);
   }
 }

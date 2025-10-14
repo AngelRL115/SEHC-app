@@ -2,7 +2,7 @@
   <h1 class="page-title">Clientes</h1>
   <div class="actions-bar">
     <button class="btn btn-secondary" routerLink="/home">Regresar a Home</button>
-    <button class="btn btn-primary">Registrar Nuevo Cliente</button>
+    <button class="btn btn-primary" (click)="openModal()">Registrar Nuevo Cliente</button>
   </div>
   <div class="table-container">
     <table class="clients-table">
@@ -30,6 +30,130 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para registrar nuevo cliente -->
+<div class="modal" [class.is-active]="isModalActive">
+  <div class="modal-background" (click)="closeModal()"></div>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="box">
+      <h3 class="title">Registro de clientes</h3>
+      
+      <!-- Formulario de Cliente -->
+      <form *ngIf="currentStep === 1" (ngSubmit)="nextStep()">
+        <div class="field">
+          <label class="label">Nombre</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="clientData.name" name="name" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Apellido</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="clientData.lastName" name="lastName" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Teléfono</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="clientData.phone" name="phone" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="clientData.invoice" name="invoice" disabled>
+            Factura
+          </label>
+        </div>
+        <div class="field">
+          <label class="label">Razón Social</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="clientData.socialReason" name="socialReason">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Código Postal</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="clientData.zipcode" name="zipcode">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Régimen Fiscal</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="clientData.fiscalRegimen" name="fiscalRegimen">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Correo Electrónico</label>
+          <div class="control">
+            <input class="input" type="email" [(ngModel)]="clientData.email" name="email">
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button type="button" class="button is-light" (click)="closeModal()">Cancelar</button>
+          </div>
+          <div class="control">
+            <button type="submit" class="button is-primary">Siguiente</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Formulario de Vehículo -->
+      <form *ngIf="currentStep === 2" (ngSubmit)="saveVehicle()">
+        <div class="field">
+          <label class="label">Marca</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="vehicleData.brand" name="brand" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Modelo</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="vehicleData.model" name="model" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Año</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="vehicleData.year" name="year" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Color</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="vehicleData.color" name="color" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Placas</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="vehicleData.plate" name="plate" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Puertas</label>
+          <div class="control">
+            <input class="input" type="number" [(ngModel)]="vehicleData.doors" name="doors" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Motor</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="vehicleData.motor" name="motor" required>
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button type="button" class="button is-light" (click)="prevStep()">Atrás</button>
+          </div>
+          <div class="control">
+            <button type="submit" class="button is-primary">Guardar</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>
