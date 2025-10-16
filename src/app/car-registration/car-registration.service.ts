@@ -32,4 +32,8 @@ export class CarRegistrationService {
   deleteVehicle(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deleteVehicle`, { body: { idVehicle: id } });
   }
+
+  updateVehicle(vehicle: Vehicle): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/updateVehicle`, vehicle);
+  }
 }

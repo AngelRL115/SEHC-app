@@ -23,7 +23,7 @@
           <td class="col-year" data-label="Año">{{ vehicle.year }}</td>
           <td class="col-plate" data-label="Placas">{{ vehicle.plate }}</td>
           <td class="col-actions actions-cell" data-label="Acciones">
-            <button class="btn btn-secondary btn-sm">Editar</button>
+            <button class="btn btn-secondary btn-sm" (click)="editVehicle(vehicle)">Editar</button>
             <button class="btn btn-danger btn-sm" (click)="deleteVehicle(vehicle)">Eliminar</button>
           </td>
         </tr>
@@ -53,6 +53,68 @@
           <button type="button" class="btn btn-danger" (click)="confirmDelete()">Aceptar</button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para editar vehiculo -->
+<div class="modal edit-modal" [class.is-active]="isEditModalActive">
+  <div class="modal-background" (click)="cancelEdit()"></div>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="box">
+      <h3 class="title">Editar Vehiculo</h3>
+      <form *ngIf="vehicleToEdit" (ngSubmit)="confirmEdit()">
+        <div class="field">
+          <label class="label">Marca</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="editVehicleData.brand" name="brand">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Modelo</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="editVehicleData.model" name="model">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Año</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="editVehicleData.year" name="year">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Color</label>
+          <div class_="control">
+            <input class="input" type="text" [(ngModel)]="editVehicleData.color" name="color">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Placas</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="editVehicleData.plate" name="plate">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Puertas</label>
+          <div class="control">
+            <input class="input" type="number" [(ngModel)]="editVehicleData.doors" name="doors">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Motor</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="editVehicleData.motor" name="motor">
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+          </div>
+          <div class="control">
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

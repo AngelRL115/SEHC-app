@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { CarRegistrationService, Vehicle } from './car-registration.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-car-registration',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './car-registration.html',
   styleUrls: ['./car-registration.css'],
   providers: [CarRegistrationService]
@@ -19,6 +20,11 @@ export class CarRegistrationComponent implements OnInit {
 
   isDeleteModalActive = false;
   vehicleToDelete: Vehicle | null = null;
+
+  isEditModalActive = false;
+  vehicleToEdit: Vehicle | null = null;
+  editVehicleData: any = {};
+  originalVehicleData: any = {};
 
   constructor(private carRegistrationService: CarRegistrationService, private router: Router) { }
 
@@ -81,6 +87,35 @@ export class CarRegistrationComponent implements OnInit {
         error: (err: any) => {
           console.error('Error deleting vehicle:', err);
           this.cancelDelete();
+        }
+      });
+    }
+  }
+
+  editVehicle(vehicle: Vehicle): void {
+    this.vehicleToEdit = vehicle;
+    this.originalVehicleData = { ...vehicle };
+    this.editVehicleData = { ...vehicle };
+    this.isEditModalActive = true;
+  }
+
+  cancelEdit(): void {
+    this.isEditModalActive = false;
+    this.vehicleToEdit = null;
+    this.editVehicleData = {};
+    this.originalVehicleData = {};
+  }
+
+  confirmEdit(): void {
+    if (this.vehicleToEdit) {
+      this.carRegistrationService.updateVehicle(this.editVehicleData).subscribe({
+        next: () => {
+          this.loadVehicles();
+          this.cancelEdit();
+        },
+        error: (err: any) => {
+          console.error('Error updating vehicle:', err);
+          this.cancelEdit();
         }
       });
     }
