@@ -8,7 +8,7 @@ export interface Client {
   lastName: string;
   phone: string;
   invoice: boolean;
-  socialReazon: string | null;
+  socialReason: string | null;
   zipcode: string | null;
   fiscalRegimen: string | null;
   email: string | null;
@@ -34,5 +34,13 @@ export class ClientService {
 
   newVehicle(vehicle: any): Observable<any> {
     return this.http.post<any>('http://localhost:3000/SEHC/vehicle/newVehicle', vehicle);
+  }
+
+  deleteClient(id: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/deleteClient`, { idClient: id });
+  }
+
+  updateClientDetails(data: any): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/updateClientDetails`, data);
   }
 }

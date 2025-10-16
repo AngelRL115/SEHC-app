@@ -33,25 +33,36 @@
   background-color: white;
 }
 
-/* Scrollable Body */
-.table-body-scroll {
-  max-height: 500px; /* Adjust as needed */
-  overflow-y: auto;
-}
-
-/* General Table Styles */
 .clients-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.clients-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.clients-table tbody {
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.clients-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
 .clients-table th, .clients-table td {
   padding: 1.2rem 1.5rem;
-  text-align: center;
   border-bottom: 1px solid #e0e0e0;
+  text-align: center;
 }
 
-/* Table Header */
 .clients-table thead th {
   background-color: #f7f9fc;
   font-weight: 600;
@@ -59,27 +70,12 @@
   text-transform: uppercase;
   font-size: 0.85rem;
   letter-spacing: 0.5px;
-  position: sticky;
-  top: 0;
-  z-index: 1;
 }
 
-/* Table Body */
-.clients-table tbody tr:last-of-type td {
-  border-bottom: none;
-}
-
-.clients-table tbody tr:hover {
-  background-color: #f1f5f9;
-}
-
-/* Column Widths */
 .col-name { width: 40%; }
 .col-lastname { width: 40%; }
 .col-actions { width: 20%; }
 
-
-/* Actions Cell */
 .actions-cell {
   display: flex;
   gap: 0.75rem;
@@ -107,6 +103,19 @@
 
 .text-center {
   text-align: center;
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .clients-table th, .clients-table td {
+    padding: 1rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
 }
 
 /* Responsive Card Layout */
@@ -168,6 +177,10 @@
 }
 
 /* Modal styles */
+.modal .modal-content {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -255,4 +268,15 @@
   background-color: #f8f9fa;
   color: #212529;
   border: 1px solid #dae0e5;
+}
+
+/* Delete Confirmation Modal Styles */
+
+.delete-modal p {
+  text-align: center;
+  margin-bottom: 1.5rem; /* Add some space before buttons */
+}
+
+.delete-modal .is-grouped {
+  justify-content: center;
 }

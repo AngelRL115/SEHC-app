@@ -13,24 +13,20 @@
           <th class="col-actions">Acciones</th>
         </tr>
       </thead>
+      <tbody class="table-body-scroll" (scroll)="onTableScroll($event)">
+        <tr *ngFor="let client of displayedClients">
+          <td class="col-name" data-label="Nombre">{{ client.name }}</td>
+          <td class="col-lastname" data-label="Apellido">{{ client.lastName }}</td>
+          <td class="col-actions actions-cell" data-label="Acciones">
+            <button class="btn btn-secondary btn-sm" (click)="editClient(client)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteClient(client)">Eliminar</button>
+          </td>
+        </tr>
+        <tr *ngIf="displayedClients.length === 0">
+          <td colspan="3" class="text-center">No hay clientes para mostrar.</td>
+        </tr>
+      </tbody>
     </table>
-    <div class="table-body-scroll" (scroll)="onTableScroll($event)">
-      <table class="clients-table">
-        <tbody>
-          <tr *ngFor="let client of displayedClients">
-            <td class="col-name" data-label="Nombre">{{ client.name }}</td>
-            <td class="col-lastname" data-label="Apellido">{{ client.lastName }}</td>
-            <td class="col-actions actions-cell" data-label="Acciones">
-              <button class="btn btn-secondary btn-sm" (click)="editClient(client.idclient)">Editar</button>
-              <button class="btn btn-danger btn-sm" (click)="deleteClient(client.idclient)">Eliminar</button>
-            </td>
-          </tr>
-          <tr *ngIf="displayedClients.length === 0">
-            <td colspan="3" class="text-center">No hay clientes para mostrar.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </div>
 
@@ -103,57 +99,99 @@
 
       <!-- Formulario de Vehículo -->
       <form *ngIf="currentStep === 2" (ngSubmit)="saveVehicle()">
+        <!-- ... vehicle fields ... -->
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para editar cliente -->
+<div class="modal" [class.is-active]="isEditModalActive">
+  <div class="modal-background" (click)="closeEditModal()"></div>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="box">
+      <h3 class="title">Editar Cliente</h3>
+      <form *ngIf="clientToEdit" (ngSubmit)="saveClientChanges()">
         <div class="field">
-          <label class="label">Marca</label>
+          <label class="label">Nombre</label>
           <div class="control">
-            <input class="input" type="text" [(ngModel)]="vehicleData.brand" name="brand" required>
+            <input class="input" type="text" [(ngModel)]="editClientData.name" name="edit_name" required>
           </div>
         </div>
         <div class="field">
-          <label class="label">Modelo</label>
+          <label class="label">Apellido</label>
           <div class="control">
-            <input class="input" type="text" [(ngModel)]="vehicleData.model" name="model" required>
+            <input class="input" type="text" [(ngModel)]="editClientData.lastName" name="edit_lastName" required>
           </div>
         </div>
         <div class="field">
-          <label class="label">Año</label>
+          <label class="label">Teléfono</label>
           <div class="control">
-            <input class="input" type="text" [(ngModel)]="vehicleData.year" name="year" required>
+            <input class="input" type="text" [(ngModel)]="editClientData.phone" name="edit_phone" required>
+          </div>
+        </div>
+        <hr>
+        <div class="field">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="editClientData.invoice" name="edit_invoice">
+            Requiere Factura
+          </label>
+        </div>
+        <div class="field">
+          <label class="label">Razón Social</label>
+          <div class="control">
+            <input class="input" type="text" [(ngModel)]="editClientData.socialReason" name="edit_socialReason">
           </div>
         </div>
         <div class="field">
-          <label class="label">Color</label>
+          <label class="label">Código Postal</label>
           <div class="control">
-            <input class="input" type="text" [(ngModel)]="vehicleData.color" name="color" required>
+            <input class="input" type="text" [(ngModel)]="editClientData.zipcode" name="edit_zipcode">
           </div>
         </div>
         <div class="field">
-          <label class="label">Placas</label>
+          <label class="label">Régimen Fiscal</label>
           <div class="control">
-            <input class="input" type="text" [(ngModel)]="vehicleData.plate" name="plate" required>
+            <input class="input" type="text" [(ngModel)]="editClientData.fiscalRegimen" name="edit_fiscalRegimen">
           </div>
         </div>
         <div class="field">
-          <label class="label">Puertas</label>
+          <label class="label">Correo Electrónico de Facturación</label>
           <div class="control">
-            <input class="input" type="number" [(ngModel)]="vehicleData.doors" name="doors" required>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Motor</label>
-          <div class="control">
-            <input class="input" type="text" [(ngModel)]="vehicleData.motor" name="motor" required>
+            <input class="input" type="email" [(ngModel)]="editClientData.email" name="edit_email">
           </div>
         </div>
         <div class="field is-grouped">
           <div class="control">
-            <button type="button" class="button is-light" (click)="prevStep()">Atrás</button>
+            <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancelar</button>
           </div>
           <div class="control">
-            <button type="submit" class="button is-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para confirmar eliminación -->
+<div class="modal delete-modal" [class.is-active]="isDeleteModalActive">
+  <div class="modal-background" (click)="cancelDelete()"></div>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="box">
+      <h3 class="title">Confirmar Eliminación</h3>
+      <p *ngIf="clientToDelete">
+        ¿Estás seguro de que deseas eliminar a 
+        <strong>{{ clientToDelete.name }} {{ clientToDelete.lastName }}</strong>?
+      </p>
+      <div class="field is-grouped">
+        <div class="control">
+          <button type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
+        </div>
+        <div class="control">
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()">Aceptar</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClientService, Client } from './client.service';
 import { FormsModule } from '@angular/forms';
-
 import { RouterModule } from '@angular/router';
+import { forkJoin, of } from 'rxjs';
 
 @Component({
   selector: 'app-clients',
@@ -18,8 +18,20 @@ export class ClientsComponent implements OnInit {
   private recordsToShow = 9;
   private recordsToLoad = 5;
 
+  // Add/View Modal
   isModalActive = false;
   currentStep = 1;
+
+  // Delete Modal
+  isDeleteModalActive = false;
+  clientToDelete: Client | null = null;
+
+  // Edit Modal
+  isEditModalActive = false;
+  clientToEdit: Client | null = null;
+  editClientData: any = {};
+  originalClientData: any = {};
+
   clientData = {
     name: '',
     lastName: '',
@@ -53,7 +65,7 @@ export class ClientsComponent implements OnInit {
         this.allClients = data;
         this.displayedClients = this.allClients.slice(0, this.recordsToShow);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error fetching clients:', err);
       }
     });
@@ -61,7 +73,7 @@ export class ClientsComponent implements OnInit {
 
   onTableScroll(event: Event): void {
     const target = event.target as HTMLElement;
-    const threshold = 100; // pixels from bottom
+    const threshold = 100;
     const position = target.scrollTop + target.offsetHeight;
     const height = target.scrollHeight;
 
@@ -73,21 +85,84 @@ export class ClientsComponent implements OnInit {
   private loadMoreClients(): void {
     const currentLength = this.displayedClients.length;
     if (currentLength >= this.allClients.length) {
-      return; // All clients are already displayed
+      return;
     }
-
     const moreClients = this.allClients.slice(currentLength, currentLength + this.recordsToLoad);
     this.displayedClients = [...this.displayedClients, ...moreClients];
   }
 
-  editClient(id: number): void {
-    console.log('Edit client with ID:', id);
+  // --- Edit Client Logic ---
+  editClient(client: Client): void {
+    this.clientToEdit = client;
+    this.originalClientData = { ...client };
+    this.editClientData = { ...client };
+    this.isEditModalActive = true;
   }
 
-  deleteClient(id: number): void {
-    console.log('Delete client with ID:', id);
+  closeEditModal(): void {
+    this.isEditModalActive = false;
+    this.clientToEdit = null;
+    this.editClientData = {};
+    this.originalClientData = {};
   }
 
+  saveClientChanges(): void {
+    if (!this.clientToEdit) return;
+
+    const payload: any = {
+        idClient: this.clientToEdit.idclient,
+        name: this.editClientData.name,
+        lastName: this.editClientData.lastName,
+        phone: this.editClientData.phone,
+        invoice: this.editClientData.invoice
+    };
+
+    if (this.editClientData.invoice) {
+        payload.socialReason = this.editClientData.socialReason;
+        payload.zipcode = this.editClientData.zipcode;
+        payload.fiscalRegimen = this.editClientData.fiscalRegimen;
+        payload.email = this.editClientData.email;
+    }
+
+    this.clientService.updateClientDetails(payload).subscribe({
+      next: () => {
+        this.loadClients();
+        this.closeEditModal();
+      },
+      error: (err: any) => {
+        console.error('Error updating client:', err);
+        this.closeEditModal();
+      }
+    });
+  }
+
+  // --- Delete Client Logic ---
+  deleteClient(client: Client): void {
+    this.clientToDelete = client;
+    this.isDeleteModalActive = true;
+  }
+
+  cancelDelete(): void {
+    this.isDeleteModalActive = false;
+    this.clientToDelete = null;
+  }
+
+  confirmDelete(): void {
+    if (this.clientToDelete) {
+      this.clientService.deleteClient(this.clientToDelete.idclient).subscribe({
+        next: () => {
+          this.loadClients();
+          this.cancelDelete();
+        },
+        error: (err: any) => {
+          console.error('Error deleting client:', err);
+          this.cancelDelete();
+        }
+      });
+    }
+  }
+
+  // --- Add Client Logic ---
   openModal(): void {
     this.isModalActive = true;
   }
@@ -104,7 +179,7 @@ export class ClientsComponent implements OnInit {
         this.vehicleData.idClient = response.clientId;
         this.currentStep = 2;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error creating client:', err);
       }
     });
@@ -118,9 +193,9 @@ export class ClientsComponent implements OnInit {
     this.clientService.newVehicle(this.vehicleData).subscribe({
       next: () => {
         this.closeModal();
-        this.loadClients(); // Refresh the client list
+        this.loadClients();
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error creating vehicle:', err);
       }
     });
