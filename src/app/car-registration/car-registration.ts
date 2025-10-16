@@ -17,6 +17,9 @@ export class CarRegistrationComponent implements OnInit {
   private recordsToShow = 9;
   private recordsToLoad = 5;
 
+  isDeleteModalActive = false;
+  vehicleToDelete: Vehicle | null = null;
+
   constructor(private carRegistrationService: CarRegistrationService, private router: Router) { }
 
   ngOnInit(): void {
@@ -39,7 +42,6 @@ export class CarRegistrationComponent implements OnInit {
   }
 
   onScroll(event: Event): void {
-    console.log('scrolling');
     const target = event.target as HTMLElement;
     const threshold = 100;
     const position = target.scrollTop + target.offsetHeight;
@@ -57,6 +59,31 @@ export class CarRegistrationComponent implements OnInit {
     }
     const moreVehicles = this.allVehicles.slice(currentLength, currentLength + this.recordsToLoad);
     this.vehicles = [...this.vehicles, ...moreVehicles];
+  }
+
+  deleteVehicle(vehicle: Vehicle): void {
+    this.vehicleToDelete = vehicle;
+    this.isDeleteModalActive = true;
+  }
+
+  cancelDelete(): void {
+    this.isDeleteModalActive = false;
+    this.vehicleToDelete = null;
+  }
+
+  confirmDelete(): void {
+    if (this.vehicleToDelete) {
+      this.carRegistrationService.deleteVehicle(this.vehicleToDelete.idVehicle).subscribe({
+        next: () => {
+          this.loadVehicles();
+          this.cancelDelete();
+        },
+        error: (err: any) => {
+          console.error('Error deleting vehicle:', err);
+          this.cancelDelete();
+        }
+      });
+    }
   }
 
   goBack(): void {

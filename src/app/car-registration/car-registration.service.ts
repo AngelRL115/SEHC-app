@@ -21,11 +21,15 @@ export interface Vehicle {
 })
 export class CarRegistrationService {
 
-  private apiUrl = 'http://localhost:3000/SEHC/vehicle/getAllVehicles';
+  private apiUrl = 'http://localhost:3000/SEHC/vehicle';
 
   constructor(private http: HttpClient) { }
 
   getAllVehicles(): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.apiUrl);
+    return this.http.get<Vehicle[]>(`${this.apiUrl}/getAllVehicles`);
+  }
+
+  deleteVehicle(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/deleteVehicle`, { body: { idVehicle: id } });
   }
 }

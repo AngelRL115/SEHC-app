@@ -48,6 +48,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'inventario',
+    component: TemporaryContentComponent,
+    canActivate: [authGuard]
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'

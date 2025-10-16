@@ -24,7 +24,7 @@
           <td class="col-plate" data-label="Placas">{{ vehicle.plate }}</td>
           <td class="col-actions actions-cell" data-label="Acciones">
             <button class="btn btn-secondary btn-sm">Editar</button>
-            <button class="btn btn-danger btn-sm">Eliminar</button>
+            <button class="btn btn-danger btn-sm" (click)="deleteVehicle(vehicle)">Eliminar</button>
           </td>
         </tr>
         <tr *ngIf="vehicles.length === 0">
@@ -32,5 +32,27 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<!-- Modal para confirmar eliminación -->
+<div class="modal delete-modal" [class.is-active]="isDeleteModalActive">
+  <div class="modal-background" (click)="cancelDelete()"></div>
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="box">
+      <h3 class="title">Confirmar Eliminación</h3>
+      <p *ngIf="vehicleToDelete">
+        ¿Estás seguro de que deseas eliminar el vehiculo con placas 
+        <strong>{{ vehicleToDelete.plate }}</strong>?
+      </p>
+      <div class="field is-grouped">
+        <div class="control">
+          <button type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
+        </div>
+        <div class="control">
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()">Aceptar</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
