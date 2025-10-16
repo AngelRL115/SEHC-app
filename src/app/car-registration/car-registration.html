@@ -1,0 +1,36 @@
+<div class="clients-container">
+  <h1 class="page-title">Registro de Autos</h1>
+  <div class="actions-bar">
+    <button class="btn btn-secondary" (click)="goBack()">Regresar</button>
+    <button class="btn btn-primary">Registrar Nuevo Vehiculo</button>
+  </div>
+
+  <div class="table-container">
+    <table class="clients-table">
+      <thead>
+        <tr>
+          <th class="col-brand">Marca</th>
+          <th class="col-model">Modelo</th>
+          <th class="col-year">Año</th>
+          <th class="col-plate">Placas</th>
+          <th class="col-actions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="table-body-scroll" (scroll)="onScroll($event)">
+        <tr *ngFor="let vehicle of vehicles">
+          <td class="col-brand" data-label="Marca">{{ vehicle.brand }}</td>
+          <td class="col-model" data-label="Modelo">{{ vehicle.model }}</td>
+          <td class="col-year" data-label="Año">{{ vehicle.year }}</td>
+          <td class="col-plate" data-label="Placas">{{ vehicle.plate }}</td>
+          <td class="col-actions actions-cell" data-label="Acciones">
+            <button class="btn btn-secondary btn-sm">Editar</button>
+            <button class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+        <tr *ngIf="vehicles.length === 0">
+          <td colspan="5" class="text-center">No hay vehiculos para mostrar.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

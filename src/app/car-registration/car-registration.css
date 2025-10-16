@@ -1,0 +1,179 @@
+.clients-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.actions-bar {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Table Container */
+.table-container {
+  width: 100%;
+  max-width: 1200px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+  background-color: white;
+}
+
+.clients-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.clients-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.clients-table tbody {
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.clients-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.clients-table th, .clients-table td {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.clients-table thead th {
+  background-color: #f7f9fc;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.col-brand {  }
+.col-model {  }
+.col-year {  }
+.col-plate {  }
+.col-actions {  }
+
+.actions-cell {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary { background-color: #337ab7; color: white; }
+.btn-primary:hover { background-color: #286090; }
+.btn-secondary { background-color: #6c757d; color: white; }
+.btn-secondary:hover { background-color: #5a6268; }
+.btn-danger { background-color: #d9534f; color: white; }
+.btn-danger:hover { background-color: #c9302c; }
+.btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+
+.text-center {
+  text-align: center;
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .clients-table th, .clients-table td {
+    padding: 1rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Responsive Card Layout */
+@media (max-width: 768px) {
+  .table-container {
+    border: none;
+    box-shadow: none;
+  }
+
+  .clients-table thead {
+    display: none;
+  }
+
+  .clients-table, .clients-table tbody, .clients-table tr, .clients-table td {
+    display: block;
+    width: 100%;
+  }
+  
+  .col-brand, .col-model, .col-year, .col-plate, .col-actions {
+    width: 100%;
+  }
+
+  .clients-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: white;
+  }
+
+  .clients-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .clients-table td:last-child {
+    border-bottom: none;
+  }
+
+  .clients-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1.5rem;
+    width: calc(50% - 3rem);
+    text-align: left;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .actions-cell {
+    justify-content: flex-end;
+  }
+  
+  .table-body-scroll {
+    max-height: none;
+    overflow-y: visible;
+  }
+}

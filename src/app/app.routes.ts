@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home';
 import { CreateUserComponent } from './create-user/create-user';
 import { authGuard } from './auth-guard';
 import { TemporaryContentComponent } from './temporary-content/temporary-content';
+import { CarRegistrationComponent } from './car-registration/car-registration';
 
 import { ClientsComponent } from './clients/clients';
 
@@ -28,7 +29,7 @@ export const routes: Routes = [
   },
   {
     path: 'registro-autos',
-    component: TemporaryContentComponent,
+    component: CarRegistrationComponent,
     canActivate: [authGuard]
   },
   {
