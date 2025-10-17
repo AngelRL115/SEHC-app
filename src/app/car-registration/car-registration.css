@@ -29,14 +29,14 @@
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  overflow-x: auto;
   background-color: white;
 }
 
 .clients-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .clients-table thead {
@@ -71,6 +71,12 @@
   font-size: 0.85rem;
   letter-spacing: 0.5px;
 }
+
+.col-brand {  }
+.col-model {  }
+.col-year {  }
+.col-plate {  }
+.col-actions {  }
 
 .actions-cell {
   display: flex;
@@ -130,7 +136,7 @@
     width: 100%;
   }
   
-  .col-name, .col-lastname, .col-actions {
+  .col-brand, .col-model, .col-year, .col-plate, .col-actions {
     width: 100%;
   }
 
