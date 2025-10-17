@@ -72,10 +72,6 @@
   letter-spacing: 0.5px;
 }
 
-.col-name { width: 40%; }
-.col-lastname { width: 40%; }
-.col-actions { width: 20%; }
-
 .actions-cell {
   display: flex;
   gap: 0.75rem;

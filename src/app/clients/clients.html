@@ -8,16 +8,16 @@
     <table class="clients-table">
       <thead>
         <tr>
-          <th class="col-name">Nombre</th>
-          <th class="col-lastname">Apellido</th>
-          <th class="col-actions">Acciones</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody class="table-body-scroll" (scroll)="onTableScroll($event)">
         <tr *ngFor="let client of displayedClients">
-          <td class="col-name" data-label="Nombre">{{ client.name }}</td>
-          <td class="col-lastname" data-label="Apellido">{{ client.lastName }}</td>
-          <td class="col-actions actions-cell" data-label="Acciones">
+          <td data-label="Nombre">{{ client.name }}</td>
+          <td data-label="Apellido">{{ client.lastName }}</td>
+          <td class="actions-cell" data-label="Acciones">
             <button class="btn btn-secondary btn-sm" (click)="editClient(client)">Editar</button>
             <button class="btn btn-danger btn-sm" (click)="deleteClient(client)">Eliminar</button>
           </td>
