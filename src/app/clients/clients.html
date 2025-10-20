@@ -78,7 +78,37 @@
         <div class="field">
           <label class="label">Régimen Fiscal</label>
           <div class="control">
-            <input class="input" type="text" [(ngModel)]="clientData.fiscalRegimen" name="fiscalRegimen">
+            <select class="input" [(ngModel)]="clientData.fiscalRegimen" name="fiscalRegimen">
+              <optgroup label="Persona Fisica">
+                <option value="(605) Sueldos y salarios e ingresos asimilados a salarios.">(605) Sueldos y salarios e ingresos asimilados a salarios.</option>
+                <option value="(606) Arrendamiento.">(606) Arrendamiento.</option>
+                <option value="(607) Régimen de Enajenación o Adquisición de Bienes.">(607) Régimen de Enajenación o Adquisición de Bienes.</option>
+                <option value="(608) Demás ingresos.">(608) Demás ingresos.</option>
+                <option value="(610) Residentes en el extranjero sin establecimiento permanente en México.">(610) Residentes en el extranjero sin establecimiento permanente en México.</option>
+                <option value="(611) Ingresos por dividendos (socios y accionistas).">(611) Ingresos por dividendos (socios y accionistas).</option>
+                <option value="(612) Personas físicas con actividades empresariales y profesionales.">(612) Personas físicas con actividades empresariales y profesionales.</option>
+                <option value="(614) Ingresos por intereses.">(614) Ingresos por intereses.</option>
+                <option value="(615) Régimen de los ingresos por obtención de premios.">(615) Régimen de los ingresos por obtención de premios.</option>
+                <option value="(616) Sin obligaciones fiscales.">(616) Sin obligaciones fiscales.</option>
+                <option value="(621) Incorporación Fiscal.">(621) Incorporación Fiscal.</option>
+                <option value="(625) Régimen de las actividades empresariales con ingresos a través de plataformas tecnológicas.">(625) Régimen de las actividades empresariales con ingresos a través de plataformas tecnológicas.</option>
+                <option value="(626) Régimen Simplificado de Confianza (RESICO) para personas físicas.">(626) Régimen Simplificado de Confianza (RESICO) para personas físicas.</option>
+                <option value="(630) Enajenación de acciones en bolsa de valores.">(630) Enajenación de acciones en bolsa de valores.</option>
+              </optgroup>
+              <optgroup label="Persona Moral">
+                <option value="(601) General de Ley Personas Morales.">(601) General de Ley Personas Morales.</option>
+                <option value="(603) Personas Morales con Fines no Lucrativos.">(603) Personas Morales con Fines no Lucrativos.</option>
+                <option value="(607) Régimen de Enajenación o Adquisición de Bienes (aplicable también a morales).">(607) Régimen de Enajenación o Adquisición de Bienes (aplicable también a morales).</option>
+                <option value="(609) Consolidación.">(609) Consolidación.</option>
+                <option value="(620) Sociedades Cooperativas de Producción que optan por diferir sus ingresos.">(620) Sociedades Cooperativas de Producción que optan por diferir sus ingresos.</option>
+                <option value="(622) Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras.">(622) Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras.</option>
+                <option value="(623) Opcional para Grupos de Sociedades.">(623) Opcional para Grupos de Sociedades.</option>
+                <option value="(624) Coordinados.">(624) Coordinados.</option>
+                <option value="(626) Régimen Simplificado de Confianza (RESICO) para personas morales.">(626) Régimen Simplificado de Confianza (RESICO) para personas morales.</option>
+                <option value="(628) Hidrocarburos.">(628) Hidrocarburos.</option>
+                <option value="(610) Residentes en el extranjero sin establecimiento permanente en México (también aplicable a morales).">(610) Residentes en el extranjero sin establecimiento permanente en México (también aplicable a morales).</option>
+              </optgroup>
+            </select>
           </div>
         </div>
         <div class="field">
@@ -201,7 +231,37 @@
         <div class="field">
           <label class="label">Régimen Fiscal</label>
           <div class="control">
-            <input class="input" type="text" [(ngModel)]="editClientData.fiscalRegimen" name="edit_fiscalRegimen">
+            <select class="input" [(ngModel)]="editClientData.fiscalRegimen" name="edit_fiscalRegimen">
+              <optgroup label="Persona Fisica">
+                <option value="(605) Sueldos y salarios e ingresos asimilados a salarios.">(605) Sueldos y salarios e ingresos asimilados a salarios.</option>
+                <option value="(606) Arrendamiento.">(606) Arrendamiento.</option>
+                <option value="(607) Régimen de Enajenación o Adquisición de Bienes.">(607) Régimen de Enajenación o Adquisición de Bienes.</option>
+                <option value="(608) Demás ingresos.">(608) Demás ingresos.</option>
+                <option value="(610) Residentes en el extranjero sin establecimiento permanente en México.">(610) Residentes en el extranjero sin establecimiento permanente en México.</option>
+                <option value="(611) Ingresos por dividendos (socios y accionistas).">(611) Ingresos por dividendos (socios y accionistas).</option>
+                <option value="(612) Personas físicas con actividades empresariales y profesionales.">(612) Personas físicas con actividades empresariales y profesionales.</option>
+                <option value="(614) Ingresos por intereses.">(614) Ingresos por intereses.</option>
+                <option value="(615) Régimen de los ingresos por obtención de premios.">(615) Régimen de los ingresos por obtención de premios.</option>
+                <option value="(616) Sin obligaciones fiscales.">(616) Sin obligaciones fiscales.</option>
+                <option value="(621) Incorporación Fiscal.">(621) Incorporación Fiscal.</option>
+                <option value="(625) Régimen de las actividades empresariales con ingresos a través de plataformas tecnológicas.">(625) Régimen de las actividades empresariales con ingresos a través de plataformas tecnológicas.</option>
+                <option value="(626) Régimen Simplificado de Confianza (RESICO) para personas físicas.">(626) Régimen Simplificado de Confianza (RESICO) para personas físicas.</option>
+                <option value="(630) Enajenación de acciones en bolsa de valores.">(630) Enajenación de acciones en bolsa de valores.</option>
+              </optgroup>
+              <optgroup label="Persona Moral">
+                <option value="(601) General de Ley Personas Morales.">(601) General de Ley Personas Morales.</option>
+                <option value="(603) Personas Morales con Fines no Lucrativos.">(603) Personas Morales con Fines no Lucrativos.</option>
+                <option value="(607) Régimen de Enajenación o Adquisición de Bienes (aplicable también a morales).">(607) Régimen de Enajenación o Adquisición de Bienes (aplicable también a morales).</option>
+                <option value="(609) Consolidación.">(609) Consolidación.</option>
+                <option value="(620) Sociedades Cooperativas de Producción que optan por diferir sus ingresos.">(620) Sociedades Cooperativas de Producción que optan por diferir sus ingresos.</option>
+                <option value="(622) Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras.">(622) Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras.</option>
+                <option value="(623) Opcional para Grupos de Sociedades.">(623) Opcional para Grupos de Sociedades.</option>
+                <option value="(624) Coordinados.">(624) Coordinados.</option>
+                <option value="(626) Régimen Simplificado de Confianza (RESICO) para personas morales.">(626) Régimen Simplificado de Confianza (RESICO) para personas morales.</option>
+                <option value="(628) Hidrocarburos.">(628) Hidrocarburos.</option>
+                <option value="(610) Residentes en el extranjero sin establecimiento permanente en México (también aplicable a morales).">(610) Residentes en el extranjero sin establecimiento permanente en México (también aplicable a morales).</option>
+              </optgroup>
+            </select>
           </div>
         </div>
         <div class="field">
